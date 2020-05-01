@@ -19,8 +19,9 @@ Python Libraries Required:
 - Open Terminal
 - Type:
 ```bash
-    git clone https://github.com/smaakd/SOC-2018
+    git clone https://github.com/Harshagarwal19/SOC-2018
     cd SOC-2018
+    pip install -r requirements.txt
     python3 manage.py runserver
 ```
 
