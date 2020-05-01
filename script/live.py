@@ -5,17 +5,19 @@ import random
 import threading
 
 import cv2
-import  uuid
+import uuid
 import time
 from camapp.models import Ipaddress
 
-
 def run_live():
-    ipadd = Ipaddress.objects.filter(group_id="22")
+    ipadd = Ipaddress.objects.filter(group_id="1")
     Ip_add=0
     for IP in ipadd:
         Ip_add = IP.ip
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(Ip_add)
+    if not cap.isOpened():
+        print("Cannot open camera")
+        exit()
     i=1
     # cascPath = sys.argv[1]
     # faceCascade = cv2.CascadeClassifier(cascPath)
@@ -40,7 +42,6 @@ def run_live():
         )
 
         # Draw a rectangle around the faces
-
         if len(faces) >= 0 and flagtime + 2.5 < time.time():
             cv2.imwrite(os.path.dirname(os.path.realpath(__file__))+"/store/" + str(i) + ".jpg", frame)
             i=i+1

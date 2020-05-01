@@ -12,8 +12,7 @@ import sys
 import os
 from script import main
 import openpyxl as op
-
-
+from camapp.keys import api_key, base_url
 
 import glob
 import threading
@@ -76,11 +75,12 @@ class PersonDelete(LoginRequiredMixin,DeleteView):
 
 @login_required
 def PersonTrain(request,pk):
-    KEY = '332c42de6f6b4b399f55c0aee49c371e'                               # Replace with a valid Subscription Key here
+                                   # Replace with a valid Subscription Key here
+    KEY = api_key 
     CF.Key.set(KEY)
-    BASE_URL = 'https://westeurope.api.cognitive.microsoft.com/face/v1.0'  # Replace with your regional Base URL
+    BASE_URL = base_url             # Replace with your regional Base URL
     CF.BaseUrl.set(BASE_URL)
-    group_id = "22"
+    group_id = "1"
     p=Person.objects.filter(id = pk)
     for person1 in p:
         x = CF.person.create(group_id, person1.name)
@@ -155,7 +155,18 @@ def startAttendance(request, flag1):
         for f in delete_previous_fraud:
             f.delete()
 
-
+        path_store = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "script","store")
+        path_repo = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "script","repo")
+        path_test = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "script","test")
+        while(os.path.isdir(path_store)):
+            os.system("rm -rf " + path_store)
+        while(os.path.isdir(path_repo)):
+            os.system("rm -rf " + path_repo)
+        while(os.path.isdir(path_test)):
+            os.system("rm -rf " + path_test)
+        os.mkdir(path_store)
+        os.mkdir(path_repo)
+        os.mkdir(path_test)
 
 
         th = threading.Thread(target = main.start)

@@ -1,5 +1,6 @@
-import threading
+#Updates the Present Table and Fraud Tables
 
+import threading
 import cognitive_face as CF
 import glob
 import datetime
@@ -10,17 +11,18 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 import os
-
+from camapp.keys import api_key, base_url, rollcam_email, rollcam_password
 
 
 def run_test1():
     print("Running face test")
-    KEY = '332c42de6f6b4b399f55c0aee49c371e'  # Replace with a valid Subscription Key here.
+
+    KEY = api_key                          # Replace with a valid Subscription Key here.
     CF.Key.set(KEY)
 
-    BASE_URL = 'https://westeurope.api.cognitive.microsoft.com/face/v1.0'  # Replace with your regional Base URL
+    BASE_URL = base_url                     # Replace with your regional Base URL
     CF.BaseUrl.set(BASE_URL)
-    group_id = "22"
+    group_id = "1"
     unrecognized=0
     recognized=0
     Face_id_list_final = []
@@ -31,14 +33,11 @@ def run_test1():
         print("IN")
         p1 = TableAttendance.objects.all()
         if p1:
-            print("aaaaaaaaaaaaaaaaaaaaaa")
             for people in p1:
-                print("ffffffffffffffffffffffff")
                 timediff = timezone.now() - people.date_time
                 if timediff.seconds > 30:
                     personid = people.personId
                     check = Fraud.objects.filter(personId=personid, t1=people.ts)
-                    print("INNNNNNNNAAAAAAAAAAAAAA")
                     if check:
                         for c in check:
                             c.t2 = datetime.datetime.now().time()
@@ -46,7 +45,6 @@ def run_test1():
                             c.date_time = datetime.datetime.now()
                             c.save()
                     else:
-                        print("INNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
                         push_in_table2 = Fraud.objects.create()
                         push_in_table2.name = people.name
                         push_in_table2.personId = people.personId
@@ -63,9 +61,9 @@ def run_test1():
                                 emaild = pinp.emailId
                                 name=pinp.name
                                 msg = MIMEMultipart()
-                                msg['From'] = "noreply.rollcam@gmail.com"
+                                msg['From'] = rollcam_email
                                 msg['To'] = emaild
-                                password = "strive2win"
+                                password = rollcam_password
                                 msg['Subject'] = "Attendance Alert"
                                 body = "Hi "+ "<b>" + name +"</b>,"+ " <br><br>" + "It is to inform you that your Attendance has not been recorded for about an hour. Kindly mark your attendance as soon as possible."+"<br><br>"+ "If you find any discrepancy with regards to the above displayed message, please contact your Administrator"
                                 msg.attach(MIMEText(body, 'html'))
@@ -102,22 +100,6 @@ def run_test1():
                 else:
                     p_id = eachoutput['candidates'][0]['personId']
 
-                    '''
-                    curname=""
-                    with open(os.path.dirname(os.path.realpath(__file__))+'/details.json') as json_data:
-                        d = json.load(json_data)
-                        for it in d:
-                            if it['personId'] == person_id:
-                                curname = it['name']
-
-                    flag=0
-                    for n in name:
-                        if(n==curname):
-                            flag=1
-                            break
-                    if(flag==0):
-                        name.append(curname)
-                        '''
                     p = Person.objects.filter(person_id=p_id)
                     for man in p:
                         if man.person_present_status == False:
@@ -134,9 +116,9 @@ def run_test1():
                             emaild = man.emailId
                             name = man.name
                             msg = MIMEMultipart()
-                            msg['From'] = "noreply.rollcam@gmail.com"
+                            msg['From'] = rollcam_email
                             msg['To'] = emaild
-                            password = "strive2win"
+                            password = rollcam_password
                             msg['Subject'] = "Attendance Confirmation"
                             body = "Hi " + "<b>" + name + "</b>," + " <br><br>" + "This is to inform you that your today's Attendance has been recorded at "+str(datetime.datetime.now().time()) + " .<br><br>" + "If you find any discrepancy with regards to the above displayed message, please contact your Administrator"
                             msg.attach(MIMEText(body, 'html'))

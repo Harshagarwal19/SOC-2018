@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('ip', models.CharField(max_length=500)),
-                ('group_id', models.CharField(default='22', max_length=100)),
+                ('group_id', models.CharField(default='1', max_length=100)),
             ],
         ),
     ]

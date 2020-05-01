@@ -1,3 +1,5 @@
+#Attendance Logic Implemented
+
 import glob
 import threading
 from . import live

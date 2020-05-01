@@ -41,7 +41,7 @@ class TableAttendance(models.Model):
 
 class Ipaddress(models.Model):
     ip = models.CharField(max_length=500)
-    group_id = models.CharField(max_length=100, default="22")
+    group_id = models.CharField(max_length=100, default="1")
 
 
 class Fraud(models.Model):
