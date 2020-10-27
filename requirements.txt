@@ -32,7 +32,7 @@ codegen==1.0
 cognitive-face==1.4.1
 colorama==0.4.3
 crawler==0.0.2
-cryptography==1.9
+cryptography==3.2
 curtsies==0.3.1
 cycler==0.10.0
 Cython==0.29.16
