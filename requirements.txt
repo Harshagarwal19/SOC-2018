@@ -71,7 +71,7 @@ kombu==4.2.2.post1
 lazy-object-proxy==1.4.3
 livereload==2.5.2
 loopytimer==0.1.0
-lxml==4.0.0
+lxml==4.6.2
 MarkupSafe==1.1.1
 matplotlib==2.2.2
 more-itertools==8.2.0
