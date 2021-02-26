@@ -1,6 +1,6 @@
 aeverall-testing-pypi==0.1
 aeveralltestingpypi==0.1
-aiohttp==3.6.2
+aiohttp==3.7.4
 altgraph==0.17
 amqp==2.3.2
 argh==0.26.2
