@@ -64,7 +64,7 @@ ipython-genutils==0.2.0
 item==0.0.3
 jdcal==1.4.1
 jedi==0.17.0
-Jinja2==2.10
+Jinja2==2.11.3
 jmespath==0.9.5
 kiwisolver==1.2.0
 kombu==4.2.2.post1
