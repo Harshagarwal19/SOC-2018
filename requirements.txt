@@ -126,7 +126,7 @@ pytils==0.3
 pytz==2018.4
 pytzdata==2019.3
 pyusb==1.0.2
-PyYAML==5.3.1
+PyYAML==5.4
 requests==2.18.4
 requests-toolbelt==0.9.1
 s3transfer==0.3.3
