@@ -87,7 +87,7 @@ opencv-python-headless==3.4.5.20
 openpyxl==2.5.9
 opie==0.0.8
 orator==0.9.8
-paramiko==2.7.1
+paramiko==2.10.1
 parso==0.7.0
 pastel==0.1.1
 pathtools==0.1.2
